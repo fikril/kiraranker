@@ -16,7 +16,7 @@ let timestamp = 0;        // savedata[0]      (Unix time when sorter was started
 let timeTaken = 0;        // savedata[1]      (Number of ms elapsed when sorter ends, used as end-of-sort flag and in filename generation)
 let choices   = '';       // savedata[2]      (String of '0', '1' and '2' that records what sorter choices are made)
 let optStr    = '';       // savedata[3]      (String of '0' and '1' that denotes top-level option selection)
-let agonyMode = true;     // savedata[4]      (Enables Agony Mode. This changes the function of 'Tie' into 'Coin Flip' and 'Undo' into 'Redo All')
+let agonyMode = false;     // savedata[4]      (Enables Agony Mode. This changes the function of 'Tie' into 'Coin Flip' and 'Undo' into 'Redo All')
 let coinFlips = 0;        // savedata[5]      (Only applicable in Agony Mode. Counts the number of coin flips that you did.)         
 let suboptStr = '';       // savedata[6...n]  (String of '0' and '1' that denotes nested option selection, separated by '|')
 let timeError = false;    // Shifts entire savedata array to the right by 1 and adds an empty element at savedata[0] if true.
@@ -757,7 +757,7 @@ function setLatestDataset() {
 function populateOptions() {
   const optList = document.querySelector('.options');
   const optInsert = (name, key, id, tooltip, checked = true, disabled = false, subkey = null) => {
-    return `<div><label title="${tooltip?tooltip:name}"><input id="cb-${id}" type="checkbox" ${checked?'checked':''} ${disabled?'disabled':''}> ${name} (${characterData.filter(x => (subkey?x.opts[key]?x.opts[key]:[]:[]).includes(subkey) || (subkey == null && x.opts.hasOwnProperty(key))).length})</label></div>`;
+    return `<div><label title="${tooltip?tooltip:name}"><input id="cb-${id}" name="category" type="radio" ${checked?'checked':''} ${disabled?'disabled':''}> ${name} (${characterData.filter(x => (subkey?x.opts[key]?x.opts[key]:[]:[]).includes(subkey) || (subkey == null && x.opts.hasOwnProperty(key))).length})</label></div>`;
   };
   const optInsertLarge = (name, id, tooltip, checked = true) => {
     return `<div class="large option">
